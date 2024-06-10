@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Check if the current user is core
 if [ "$(whoami)" != "core" ]; then
     echo "This script can only be executed by the core user."
     exit 1
@@ -12,8 +11,7 @@ mentors_home="$core_home/mentors"
 
 declare -A mentor_capacity
 
-# Reading mentor details from mentorDetails.txt
-while IFS= read -r line; do
+
     mentor=$(echo $line | cut -d ' ' -f1)
     domain=$(echo $line | cut -d ' ' -f2)
     capacity=$(echo $line | cut -d ' ' -f3)
@@ -21,7 +19,7 @@ while IFS= read -r line; do
     echo "Mentor $mentor with capacity $capacity added to domain $domain"
 done < mentorDetails.txt
 
-# Reading mentee details from menteeDetails.txt
+
 while IFS= read -r line; do
     rollno=$(echo $line | cut -d ' ' -f1)
     name=$(echo $line | cut -d ' ' -f2)
@@ -45,13 +43,12 @@ done < menteeDetails.txt
 <<<<<<< HEAD
 =======
 
-# Ensure /home/core/mentees_domain.txt is writable
+
 mentees_domain_file="$core_home/mentees_domain.txt"
 if [ ! -w "$mentees_domain_file" ]; then
     sudo chmod 622 "$mentees_domain_file"
 fi
 
-# Append domain preferences to mentees_domain.txt
 for mentee_dir in "$mentees_home"/*; do
     rollno=$(basename "$mentee_dir")
     domain_pref_file="$mentees_home/$rollno/domain_pref.txt"
