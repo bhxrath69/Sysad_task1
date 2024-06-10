@@ -42,6 +42,26 @@ while IFS= read -r line; do
         echo "Domain preference file for $rollno not found."
     fi
 done < menteeDetails.txt
+<<<<<<< HEAD
+=======
+
+# Ensure /home/core/mentees_domain.txt is writable
+mentees_domain_file="$core_home/mentees_domain.txt"
+if [ ! -w "$mentees_domain_file" ]; then
+    sudo chmod 622 "$mentees_domain_file"
+fi
+
+# Append domain preferences to mentees_domain.txt
+for mentee_dir in "$mentees_home"/*; do
+    rollno=$(basename "$mentee_dir")
+    domain_pref_file="$mentees_home/$rollno/domain_pref.txt"
+    if [ -f "$domain_pref_file" ]; then
+        while IFS= read -r domain; do
+            echo "$rollno $domain" >> "$mentees_domain_file"
+        done < "$domain_pref_file"
+    fi
+done
+>>>>>>> faede12 (changes for mentor alloc)
 
 # Ensure /home/core/mentees_domain.txt is writable
 mentees_domain_file="$core_home/mentees_domain.txt"
